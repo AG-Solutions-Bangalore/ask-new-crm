@@ -6,14 +6,12 @@ import Login from "@/app/auth/login";
 import NotFound from "@/app/errors/not-found";
 import Settings from "@/app/setting/setting";
 import ErrorBoundary from "@/components/error-boundry/error-boundry";
-import ForgotPassword from "@/components/forgot-password/forgot-password";
 import LoadingBar from "@/components/loader/loading-bar";
 
 // Dashboard & Profile
 const Home = lazy(() => import("@/pages/dashboard/Home"));
 const Maintenance = lazy(() => import("@/pages/maintenance/Maintenance"));
 const Profile = lazy(() => import("@/pages/profile/Profile"));
-const ChangePassword = lazy(() => import("@/pages/profile/ChangePassword"));
 
 // Membership
 const LifeTimeMemberList = lazy(
@@ -58,14 +56,6 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<AuthRoute />}>
           <Route path="/" element={<Login />} />
-          <Route
-            path="/forgot-password"
-            element={
-              <Suspense fallback={<LoadingBar />}>
-                <ForgotPassword />
-              </Suspense>
-            }
-          />
           <Route path="/maintenance" element={<Maintenance />} />
         </Route>
 
@@ -92,14 +82,6 @@ function AppRoutes() {
             element={
               <Suspense fallback={<LoadingBar />}>
                 <Profile />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <Suspense fallback={<LoadingBar />}>
-                <ChangePassword />
               </Suspense>
             }
           />

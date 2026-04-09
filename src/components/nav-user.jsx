@@ -80,17 +80,6 @@ export function NavUser({ user }) {
               </DropdownMenuLabel>
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate("/profile")}>
-                <User />
-
-                <span className=" cursor-pointer">Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/change-password")}>
-                <Key />
-
-                <span className=" cursor-pointer">Change Password</span>
-              </DropdownMenuItem>
-
               <DropdownMenuItem onClick={handleLogout}>
                 <LogOut />
 

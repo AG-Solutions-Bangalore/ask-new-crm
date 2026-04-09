@@ -39,6 +39,10 @@ const NewRegisterList = () => {
     navigate(`/member-edit/${id}`);
   };
 
+  const handlePrint = (id) => {
+    navigate(`/member-print/${id}`);
+  };
+
   const columns = [
     {
       accessorKey: "slNo",
@@ -70,15 +74,17 @@ const NewRegisterList = () => {
       header: "Action",
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(`/new-mid-assign/${row.original.id}`)}
-            className="hover:text-blue-600 hover:bg-blue-50"
-            title="Assign MID"
-          >
-            <FiKey className="h-4 w-4" />
-          </Button>
+          {useTypeId === "3" && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(`/new-mid-assign/${row.original.id}`)}
+              className="hover:text-blue-600 hover:bg-blue-50"
+              title="Assign MID"
+            >
+              <FiKey className="h-4 w-4" />
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -98,20 +104,15 @@ const NewRegisterList = () => {
             <FiEdit className="h-4 w-4" />
           </Button>
           {useTypeId === "3" && (
-            <a 
-              href={`https://agrawalsamaj.co/crmapi/public/api/member-print/${row.original.id}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handlePrint(row.original.id)}
+              className="hover:text-primary hover:bg-pink-50"
+              title="Print"
             >
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-primary hover:bg-pink-50"
-                title="Print"
-              >
-                <FiPrinter className="h-4 w-4" />
-              </Button>
-            </a>
+              <FiPrinter className="h-4 w-4" />
+            </Button>
           )}
         </div>
       ),
@@ -134,8 +135,13 @@ const NewRegisterList = () => {
             <FiUserPlus className="w-6 h-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">New Registrations</h1>
-            <p className="text-sm text-slate-500">List of members who recently registered and are awaiting MID assignment.</p>
+            <h1 className="text-2xl font-bold text-slate-900">
+              New Registrations
+            </h1>
+            <p className="text-sm text-slate-500">
+              List of members who recently registered and are awaiting MID
+              assignment.
+            </p>
           </div>
         </div>
       </div>
@@ -152,4 +158,3 @@ const NewRegisterList = () => {
 };
 
 export default NewRegisterList;
-

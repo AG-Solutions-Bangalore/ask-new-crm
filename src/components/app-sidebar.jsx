@@ -20,6 +20,7 @@ import {
   Users2,
   Star,
   Settings2,
+  Code,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -61,34 +62,25 @@ const NAVIGATION_CONFIG = {
       url: "/pending-mid",
       icon: Clock,
     },
+    DOWNLOAD: {
+      title: "Downloads",
+      url: "/download",
+      icon: FileDown,
+    },
+    SAMAJ: {
+      title: "Samaj",
+      url: "/samaj",
+      icon: Star,
+    },
+    MAHILA: {
+      title: "Mahila",
+      url: "/mahila",
+      icon: Users2,
+    },
     DEVELOPER: {
       title: "Developer",
       url: "/developer",
-      icon: LayoutDashboard,
-    },
-    EVENT: {
-      title: "Events",
-      url: "#",
-      icon: Users2,
-      items: [
-        {
-          title: "Samaj",
-          url: "/samaj",
-        },
-        {
-          title: "Mahila",
-          url: "/mahila",
-        },
-        {
-          title: "Developer",
-          url: "/developer",
-        },
-      ],
-    },
-    DOWNLOAD: {
-      title: "Download",
-      url: "/download",
-      icon: FileDown,
+      icon: Code,
     },
   },
 };
@@ -105,8 +97,10 @@ const USER_ROLE_PERMISSIONS = {
       "LIFE_TIME_MEMBER",
       "PATRON_MEMBER",
       "NEW_REGISTER",
-      "EVENT",
+      "SAMAJ",
+      "MAHILA",
       "DOWNLOAD",
+      "DEVELOPER",
     ],
   },
   3: {
@@ -117,8 +111,10 @@ const USER_ROLE_PERMISSIONS = {
       "LIFE_TIME_MEMBER",
       "PATRON_MEMBER",
       "NEW_REGISTER",
-      "EVENT",
+      "SAMAJ",
+      "MAHILA",
       "DOWNLOAD",
+      "DEVELOPER",
     ],
   },
 };
@@ -169,7 +165,7 @@ const useNavigationData = (userTypeId) => {
 };
 
 const Logo = ({ className }) => (
-  <img src="https://new.agrawalsamaj.co/assets/logo-LrjSJo0H.png" alt="Logo" className={className} />
+  <img src="/fevicon.png" alt="Logo" className={className} />
 );
 
 const TEAMS_CONFIG = [
@@ -183,7 +179,9 @@ const TEAMS_CONFIG = [
 export function AppSidebar({ ...props }) {
   const [openItem, setOpenItem] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  const user_type_id = useSelector((state) => state.auth.user_type_id);
+  const user_type_id =
+    useSelector((state) => state.auth.user_type_id) ||
+    localStorage.getItem("user_type_id");
   const { navMain, navMainReport } = useNavigationData(user_type_id);
   const initialData = {
     user: {
@@ -221,4 +219,3 @@ export function AppSidebar({ ...props }) {
 }
 
 export { NAVIGATION_CONFIG, USER_ROLE_PERMISSIONS };
-

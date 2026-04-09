@@ -5,11 +5,23 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { WEB_API } from "@/constants/apiConstants";
 import apiClient from "@/api/apiClient";
 import { setCredentials } from "@/store/auth/authSlice";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 const Login = () => {
@@ -52,7 +64,7 @@ const Login = () => {
         username: user.username,
       });
 
-      if (res.data.code === "400") {
+      if (res.data.code == "400") {
         toast.error("Mobile No is not Registered");
       } else {
         toast.success("OTP Sent to Mobile No.");
@@ -79,7 +91,7 @@ const Login = () => {
         password: user.password,
       });
 
-      if (res.status === 200) {
+      if (res.status == 200) {
         const userInfo = res.data.UserInfo;
         if (userInfo && userInfo.token) {
           // Update Redux
@@ -88,7 +100,7 @@ const Login = () => {
               token: userInfo.token,
               user: userInfo.user,
               user_type_id: userInfo.user.user_type_id,
-            })
+            }),
           );
           // Update localStorage as per src copy
           localStorage.setItem("token", userInfo.token);
@@ -137,29 +149,43 @@ const Login = () => {
           </CarouselContent>
         </Carousel>
         <div className="absolute inset-0 flex flex-col justify-end p-12 bg-gradient-to-t from-black/60 to-transparent">
-          <h1 className="text-4xl font-bold text-white mb-4">Welcome to Agarwal Samaj</h1>
-          <p className="text-slate-200">Connect with your community and stay updated with the latest events and news.</p>
+          <h1 className="text-4xl font-bold text-white mb-4">
+            Welcome to Agarwal Samaj
+          </h1>
+          <p className="text-slate-200">
+            Connect with your community and stay updated with the latest events
+            and news.
+          </p>
         </div>
       </div>
 
       {/* Right side - Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8">
-          <div className="flex justify-between items-center mb-8">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900">Login</h2>
+          <div className="flex flex-col justify-center items-start gap-5">
+            <img
+              src="https://new.agrawalsamaj.co/assets/logo-LrjSJo0H.png"
+              alt="Logo"
+              className="h-auto w-[80%]"
+            />
+            <div className="space-y-2 px-2">
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+                Login
+              </h2>
               <p className="text-slate-500">
-                If you are already a member, easily log in with your mobile number.
+                If you are already a member, easily log in with your mobile
+                number.
               </p>
             </div>
-            <img src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
           </div>
 
           <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
             <CardHeader className="pb-4">
               <CardTitle className="text-xl">Authentication</CardTitle>
               <CardDescription>
-                {showOtpField ? "Enter the OTP sent to your mobile" : "Enter your registered mobile number"}
+                {showOtpField
+                  ? "Enter the OTP sent to your mobile"
+                  : "Enter your registered mobile number"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -220,14 +246,6 @@ const Login = () => {
               )}
             </CardContent>
           </Card>
-
-          <footer className="text-center text-sm text-slate-500">
-            Not a member?{" "}
-            <Link to="/register" className="font-semibold text-primary hover:underline">
-              Sign Up Now
-            </Link>
-
-          </footer>
         </div>
       </div>
     </div>
@@ -235,4 +253,3 @@ const Login = () => {
 };
 
 export default Login;
-

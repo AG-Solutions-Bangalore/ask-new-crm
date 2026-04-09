@@ -211,7 +211,7 @@ const MemberPrint = () => {
             {/* Header Section */}
             <div className="flex flex-col items-center pt-0">
               <img
-                src={pheader}
+                src={profile.member_type === "L" ? lheader : pheader}
                 alt="header"
                 className="header-image w-full object-fit h-auto mb-2"
               />
