@@ -20,6 +20,7 @@ import {
   Users2,
   Star,
   Settings2,
+  Code,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -61,20 +62,25 @@ const NAVIGATION_CONFIG = {
       url: "/pending-mid",
       icon: Clock,
     },
-    MAHILA: {
-      title: "Mahila Events",
-      url: "/mahila",
-      icon: Users2,
+    DOWNLOAD: {
+      title: "Downloads",
+      url: "/download",
+      icon: FileDown,
     },
     SAMAJ: {
-      title: "Samaj Events",
+      title: "Samaj",
       url: "/samaj",
       icon: Star,
     },
-    DOWNLOAD: {
-      title: "Download",
-      url: "/download",
-      icon: FileDown,
+    MAHILA: {
+      title: "Mahila",
+      url: "/mahila",
+      icon: Users2,
+    },
+    DEVELOPER: {
+      title: "Developer",
+      url: "/developer",
+      icon: Code,
     },
   },
 };
@@ -91,10 +97,10 @@ const USER_ROLE_PERMISSIONS = {
       "LIFE_TIME_MEMBER",
       "PATRON_MEMBER",
       "NEW_REGISTER",
-      "PENDING_MID",
-      "MAHILA",
       "SAMAJ",
+      "MAHILA",
       "DOWNLOAD",
+      "DEVELOPER",
     ],
   },
   3: {
@@ -105,10 +111,10 @@ const USER_ROLE_PERMISSIONS = {
       "LIFE_TIME_MEMBER",
       "PATRON_MEMBER",
       "NEW_REGISTER",
-      "PENDING_MID",
-      "MAHILA",
       "SAMAJ",
+      "MAHILA",
       "DOWNLOAD",
+      "DEVELOPER",
     ],
   },
 };
@@ -126,10 +132,10 @@ const LIMITED_MASTER_SETTINGS = {
   ],
 };
 
-const useNavigationData = (userType) => {
+const useNavigationData = (userTypeId) => {
   return useMemo(() => {
     const permissions =
-      USER_ROLE_PERMISSIONS[userType] || USER_ROLE_PERMISSIONS[1];
+      USER_ROLE_PERMISSIONS[userTypeId] || USER_ROLE_PERMISSIONS[1];
 
     const buildNavItems = (permissionKeys, config, customItems = {}) => {
       return permissionKeys
@@ -155,11 +161,11 @@ const useNavigationData = (userType) => {
     // );
 
     return { navMain };
-  }, [userType]);
+  }, [userTypeId]);
 };
 
 const Logo = ({ className }) => (
-  <img src="https://new.agrawalsamaj.co/assets/logo-LrjSJo0H.png" alt="Logo" className={className} />
+  <img src="/fevicon.png" alt="Logo" className={className} />
 );
 
 const TEAMS_CONFIG = [
@@ -173,7 +179,10 @@ const TEAMS_CONFIG = [
 export function AppSidebar({ ...props }) {
   const [openItem, setOpenItem] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  const { navMain, navMainReport } = useNavigationData(user?.user_type);
+  const user_type_id =
+    useSelector((state) => state.auth.user_type_id) ||
+    localStorage.getItem("user_type_id");
+  const { navMain, navMainReport } = useNavigationData(user_type_id);
   const initialData = {
     user: {
       name: user?.name || "User",
@@ -210,4 +219,3 @@ export function AppSidebar({ ...props }) {
 }
 
 export { NAVIGATION_CONFIG, USER_ROLE_PERMISSIONS };
-

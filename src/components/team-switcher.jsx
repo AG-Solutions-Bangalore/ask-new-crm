@@ -28,15 +28,12 @@ export function TeamSwitcher({ teams }) {
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-sidebar-accent/30"
         >
-          <div className="flex aspect-square size-9 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <activeTeam.logo className="size-4" />
+          <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <activeTeam.logo className="size-8" />
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className=" break-words  font-bold  text-sidebar-foreground">
               {activeTeam.name}
-            </span>
-            <span className="truncate text-xs text-sidebar-foreground/80">
-              {activeTeam.plan}
             </span>
           </div>
           <ChevronsUpDown className="ml-auto" />
@@ -80,4 +77,3 @@ export function TeamSwitcher({ teams }) {
     </SidebarMenu>
   );
 }
-

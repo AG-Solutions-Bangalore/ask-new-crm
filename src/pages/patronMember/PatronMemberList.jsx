@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiEye, FiEdit, FiUserCheck } from "react-icons/fi";
+import { FiEye, FiEdit, FiPrinter, FiUserCheck } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import DataTable from "@/components/common/data-table";
 import apiClient from "@/api/apiClient";
@@ -11,6 +11,7 @@ const PatronMemberList = () => {
   const [patronMemberData, setPatronMemberData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const useTypeId = localStorage.getItem("user_type_id");
 
   const fetchPMemberData = async () => {
     try {
@@ -36,6 +37,10 @@ const PatronMemberList = () => {
   const handleEdit = (id) => {
     localStorage.setItem("edit", "/patron-member");
     navigate(`/member-edit/${id}`);
+  };
+
+  const handlePrint = (id) => {
+    navigate(`/member-print/${id}`);
   };
 
   const columns = [
@@ -83,6 +88,17 @@ const PatronMemberList = () => {
           >
             <FiEdit className="h-4 w-4" />
           </Button>
+          {useTypeId === "3" && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handlePrint(row.original.id)}
+              className="hover:text-primary hover:bg-pink-50"
+              title="Print"
+            >
+              <FiPrinter className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       ),
     },

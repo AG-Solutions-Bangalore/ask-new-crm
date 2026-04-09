@@ -6,14 +6,12 @@ import Login from "@/app/auth/login";
 import NotFound from "@/app/errors/not-found";
 import Settings from "@/app/setting/setting";
 import ErrorBoundary from "@/components/error-boundry/error-boundry";
-import ForgotPassword from "@/components/forgot-password/forgot-password";
 import LoadingBar from "@/components/loader/loading-bar";
 
 // Dashboard & Profile
 const Home = lazy(() => import("@/pages/dashboard/Home"));
 const Maintenance = lazy(() => import("@/pages/maintenance/Maintenance"));
 const Profile = lazy(() => import("@/pages/profile/Profile"));
-const ChangePassword = lazy(() => import("@/pages/profile/ChangePassword"));
 
 // Membership
 const LifeTimeMemberList = lazy(
@@ -30,6 +28,7 @@ const PendingMidList = lazy(() => import("@/pages/pendingMid/PendingMidList"));
 // Community Focus
 const MahilaList = lazy(() => import("@/pages/mahila/MahilaList"));
 const SamajList = lazy(() => import("@/pages/samaj/SamajList"));
+const Developer = lazy(() => import("@/pages/developer/Developer"));
 
 // Family Members
 const FamilyMemberList = lazy(
@@ -49,7 +48,7 @@ const NewMidAssign = lazy(() => import("@/pages/commonPage/NewMidAssign"));
 
 // Reports & Printing
 const DownloadReport = lazy(() => import("@/pages/download/Download"));
-const MemberPrint = lazy(() => import("@/pages/memberPrint/MemberPrint"));
+const MemberPrint = lazy(() => import("@/pages/commonPage/MemberPrint"));
 
 function AppRoutes() {
   return (
@@ -57,14 +56,6 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<AuthRoute />}>
           <Route path="/" element={<Login />} />
-          <Route
-            path="/forgot-password"
-            element={
-              <Suspense fallback={<LoadingBar />}>
-                <ForgotPassword />
-              </Suspense>
-            }
-          />
           <Route path="/maintenance" element={<Maintenance />} />
         </Route>
 
@@ -80,21 +71,17 @@ function AppRoutes() {
           <Route path="/maintenance" element={<Maintenance />} />
           <Route
             path="/developer"
-            element={<ProtectedRoute element={<Home />} />}
+            element={
+              <Suspense fallback={<LoadingBar />}>
+                <Developer />
+              </Suspense>
+            }
           />
           <Route
             path="/profile"
             element={
               <Suspense fallback={<LoadingBar />}>
                 <Profile />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <Suspense fallback={<LoadingBar />}>
-                <ChangePassword />
               </Suspense>
             }
           />
